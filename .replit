@@ -1,2 +1,2 @@
 language = "swift"
-run = "swiftc -o main main.swift && ./main"
+run = "swiftc -o swift_project main.swift show_signe.swift helper.swift && ./swift_project"
