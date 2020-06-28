@@ -1,37 +1,68 @@
+func parseCommand(command: String) -> (name: String, args: [String]) {
+  var arr = command.split(separator: " ").map{ String($0) }.filter{$0 != ""}
+  let cmd = arr[0]
+  arr.removeFirst()
+  return (cmd, arr)
+}
 
-print("Bienvenue dans le projet Switf")
+func listGames() {
+  print("Sélectionnez un jeu")
+  print("guess - Devinez le nombre aléatoire")
+}
 
 var is_ended: Bool = false
+typealias commandFunc = (String, [String]) -> Bool
+var commands = [String : commandFunc]()
+var currentGame: Game? = nil
+
+commands["quit"] = {
+  (name: String, args: [String]) -> Bool in
+  print("Bye")
+  is_ended = true
+  return true
+}
+
+commands["stop"] = {
+  (name: String, args: [String]) -> Bool in
+  if let unwrapped = currentGame {
+    unwrapped.stop()
+  }
+  return true
+}
+
+commands["guess"] = {
+  (name: String, args: [String]) -> Bool in
+  currentGame = Guess()
+  if let unwrapped = currentGame {
+    unwrapped.reset()
+    unwrapped.start()
+  }
+  return true
+}
+
+print("Bienvenue dans le projet Swift")
+listGames()
 
 while(!is_ended) {
-  print("Entrez votre choix: ")
-  let user_choise = readLine()
-
-  switch user_choise {
-    case "show_signe":
-      var first_value: Int32
-      var second_value: Int32
-      do {
-        print("Input first value for the multiplication")
-        first_value = try read_numeric_input(read_value: readLine())
-
-        print("Input second value for the multiplication")
-        second_value = try read_numeric_input(read_value: readLine())
-      
-      } catch is NumericError {
-        print(NumericError.self)
-        break
+  let command = parseCommand(command: readLine()!)
+  if (command.name != "") {
+    if let fun = commands[command.name] {
+      if (!fun(command.name, command.args)) {
+        print("Utilisation incorrecte")
       }
-
-      print("The result of this multiplication is \(show_signe(first_value: first_value, second_value: second_value))" )
-      break
-
-    case "stop":
-      is_ended = true
-      break
-  
-    default:
-      print("Bad input retry")
+    } else if (currentGame == nil) {
+      print("Commande inconnue")
+    } else if let unwrapped = currentGame {
+      if(!unwrapped.onCommand(command: command.name, args: command.args)) {
+        print("Commande inconnue")
+      }
+    }
   }
 
+  if let unwrapped = currentGame {
+    if (unwrapped.isOver()) {
+      currentGame = nil
+      listGames()
+    }
+  }
 }
