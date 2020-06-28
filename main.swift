@@ -8,6 +8,7 @@ func parseCommand(command: String) -> (name: String, args: [String]) {
 func listGames() {
   print("Sélectionnez un jeu")
   print("guess - Devinez le nombre aléatoire")
+  print("quit - Quitter le logiciel")
 }
 
 var is_ended: Bool = false
