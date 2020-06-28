@@ -1,5 +1,8 @@
 class Guess: Game {
 
+  let name = "guess"
+  let description = "Devinez le nombre mystère"
+
   var number: Int
   var over: Bool
 
