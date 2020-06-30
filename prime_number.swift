@@ -1,26 +1,34 @@
 class PrimeNumber: Game {
   let name = "prime"
-  let description = "Pendant 3 itérations, essayé de devinner si le nombre est premier"
-  let maxIteration = 2
+  let description = "Pendant 3 itérations, essayé de deviner si le nombre est premier"
+  let maxIteration = 3
 
   var currentValue: Int
+  var prime: Bool
   var over: Bool
   var iterationNumber: UInt
 
   init() {
-    currentValue = Int.random(in: 0 ... 500))
+    over = false
+    iterationNumber = 0
+    currentValue = 0
+    prime = false
+    reset()
+  }
+
+  func reset() {
     over = false
     iterationNumber = 0
   }
 
-  reset() {}
-    func reset() {
-    over = false
-    currentValue = Int.random(in: 0 ... 500))
+  func generateNumber() {
+    currentValue = Int.random(in: 0 ... 500)
+    prime = isPrime(n: currentValue)
+    print("Le nombre \(currentValue) est-il premier ? (oui/non)")
   }
 
   func start() {
-    print("Le nombre \(currentValue) est-il premier ?")
+    generateNumber()
   }
 
   func stop() {
@@ -32,37 +40,44 @@ class PrimeNumber: Game {
   }
 
   func onCommand(command: String, args: [String]) -> Bool {
-    let user_answer = command
+    let user_answer = command.lowercased()
 
-    if user_answer.lowercased() == "oui" && isPrime(currentValue) {
-      print("Il est prime")
-      
-    } else if user_answer.lowercased() == "non" && isPrime(currentValue) {
-      print("Il n'est pas prime")
-
-    }else {
-      return false
+    switch user_answer {
+      case "oui":
+        if prime {
+          print("Bravo ! Il est premier !")
+        } else {
+          print("Raté")
+        }
+      case "non":
+        if prime {
+          print("Bravo ! Il n'est pas premier !")
+        } else {
+          print("Raté")
+        }
+      default:
+        return false
     }
-
-    reset()
     
     iterationNumber += 1
 
     if iterationNumber == maxIteration {
-      isOver()
+      stop()
+    } else {
+      generateNumber()
     }
 
     return true
       
   }
 
-  func isPrime() {
-    if currentValue <= 1 {
+  func isPrime(n: Int) -> Bool {
+    if n <= 1 {
       return false
     }
 
-    for i in 2 ..< currentValue {
-      if currentValue % 2 == 0 {
+    for i in 2 ..< n {
+      if n % i == 0 {
         return false
       }
     }

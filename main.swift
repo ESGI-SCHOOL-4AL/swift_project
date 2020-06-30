@@ -16,6 +16,7 @@ func parseCommand(command: String) -> (name: String, args: [String]) {
 }
 
 func listGames() {
+  print("-------------------")
   print("Sélectionnez un jeu")
   for game in games {
     print(game.name + " - " + game.description)
@@ -49,6 +50,7 @@ commands["stop"] = {
 }
 
 games.append(Guess())
+games.append(PrimeNumber())
 
 print("Bienvenue dans le projet Swift")
 listGames()
