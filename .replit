@@ -1,2 +1,2 @@
 language = "swift"
-run = "swiftc -o swift_project main.swift helper.swift game.swift guess.swift prime_number.swift && ./swift_project"
+run = "swiftc -o swift_project main.swift helper.swift game.swift guess.swift prime_number.swift hangman.swift && ./swift_project"
