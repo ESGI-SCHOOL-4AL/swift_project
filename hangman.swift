@@ -26,7 +26,7 @@ class Hangman: Game {
     word = words.randomElement()!
     hiddenWord = [Character]()
     for _ in word {
-      hiddenWord.append("_")
+      hiddenWord.append("-")
     }
   }
 
