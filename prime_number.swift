@@ -1,6 +1,6 @@
 class PrimeNumber: Game {
   let name = "prime"
-  let description = "Pendant 3 itérations, essayé de deviner si le nombre est premier"
+  let description = "Pendant 3 itérations, essayez de deviner si le nombre est premier"
   let maxIteration = 3
 
   var currentValue: Int

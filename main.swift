@@ -52,6 +52,7 @@ commands["stop"] = {
 games.append(Guess())
 games.append(PrimeNumber())
 games.append(Hangman())
+games.append(TicTacToe())
 
 print("Bienvenue dans le projet Swift")
 listGames()

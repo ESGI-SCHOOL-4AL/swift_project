@@ -3,12 +3,12 @@ enum NumericError: Error {
   case invalidInputType
 }
 
-func read_numeric_input(read_value: String?) throws -> Int32 {
+func read_numeric_input(_ read_value: String?) throws -> Int {
   if read_value == nil {
     throw NumericError.emptyInput
   }
 
-  let numeric_convertion = Int32(read_value!)
+  let numeric_convertion = Int(read_value!)
 
   if numeric_convertion == nil {
     throw NumericError.invalidInputType

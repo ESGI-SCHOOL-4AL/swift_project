@@ -30,7 +30,7 @@ class Guess: Game {
 
   func onCommand(command: String, args: [String]) -> Bool {
     do {
-      let n = try read_numeric_input(read_value: command)
+      let n = try read_numeric_input(command)
       if n < number {
         print("Trop petit")
       } else if n > number {
